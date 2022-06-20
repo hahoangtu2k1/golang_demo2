@@ -6,6 +6,9 @@ import (
 	"time"
 )
 
+func x(ctx context.Context) context.Context {
+	return context.WithValue(context.Background(), "current", time.Now().UnixNano())
+}
 func main() {
 
 	go test2()
@@ -70,15 +73,28 @@ func test5() {
 func test6() {
 	fmt.Println("Có 4 loại :seconds, milliseconds, microseconds and nanoseconds")
 }
+func test7() {
+	ctx2 := context.Background()
+	ctx2 = x(ctx2)
+
+	currentTime := ctx2.Value("current").(int64)
+	fmt.Println(currentTime)
+
+	time.Sleep(time.Second * 3)
+	currentTimeAfter3s := time.Now().UnixNano()
+	fmt.Println(currentTimeAfter3s)
+
+	result := currentTimeAfter3s - currentTime
+	fmt.Println(result)
+
+}
 func test8() {
 	for {
 		time.Sleep(100 * time.Millisecond)
 		fmt.Println(time.Now().Unix(), "done")
 	}
 }
-func x(ctx context.Context) {
 
-}
 func test9() {
 	step := time.Duration(100 * time.Millisecond)
 	f := func() {
