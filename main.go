@@ -10,25 +10,29 @@ func x(ctx context.Context) context.Context {
 	return context.WithValue(context.Background(), "current", time.Now().UnixNano())
 }
 func main() {
+	test1()
+	test2()
+	test3()
+	test4()
+	test5()
+	test6()
+	test7()
+	test9()
+	test8() //interval
+}
 
-	go test2()
-	go test3()
-	go test4()
-	go test5()
-	go test6()
-	go test8() //interval
-	go test9()
-
-	// formatted := fmt.Sprintf("%d-%02d-%02dT%02d:%02d:%02d",
-	// 	t.Year(), t.Month(), t.Day(),
-	// 	t.Hour(), t.Minute(), t.Second())
+// formatted := fmt.Sprintf("%d-%02d-%02dT%02d:%02d:%02d",
+// 	t.Year(), t.Month(), t.Day(),
+// 	t.Hour(), t.Minute(), t.Second())
+func test1() {
+	fmt.Println("----------------------------------bài 1-----------------------------------------")
 	for i := 0; i < 3; i++ {
 		time.Sleep(3 * time.Second)
 		fmt.Println("time now: ", time.Now().UnixMilli())
 	}
 	time.Sleep(3 * time.Second)
-	fmt.Println("Good bye")
-	fmt.Println("----------------------------------test 7---------------------------------------")
+	fmt.Println("kết thúc")
+
 	// ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	// defer cancel()
 
@@ -42,11 +46,13 @@ func main() {
 }
 
 func test2() {
-	t := time.Now()
+	fmt.Println("----------------------------bài 2-------------------------------")
+	t := time.Now().UnixMilli()
 	// formatted := fmt.Sprintf("date time: ", t.Day())
 	fmt.Println("date time", t)
 }
 func test3() {
+	fmt.Println("----------------------------bài 3-------------------------------")
 	ctx, _ := context.WithTimeout(context.Background(), time.Second*3)
 	go func(ctx context.Context) {
 		for {
@@ -63,17 +69,24 @@ func test3() {
 	time.Sleep(10 * time.Second)
 }
 func test4() {
+	fmt.Println("----------------------------bài 4-------------------------------")
+
 	nix := time.Unix(0, 1592190294764144364).UTC()
 	fmt.Println("Số phút: ", nix.Minute())
 }
 func test5() {
+	fmt.Println("----------------------------bài 5-------------------------------")
 	d := time.Unix(0, 592190385).UTC()
 	fmt.Println("day: ", d.Weekday())
 }
 func test6() {
+	fmt.Println("----------------------------bài 6-------------------------------")
+
 	fmt.Println("Có 4 loại :seconds, milliseconds, microseconds and nanoseconds")
 }
 func test7() {
+	fmt.Println("----------------------------bài 7-------------------------------")
+
 	ctx2 := context.Background()
 	ctx2 = x(ctx2)
 
@@ -89,6 +102,8 @@ func test7() {
 
 }
 func test8() {
+	fmt.Println("----------------------------bài 8-------------------------------")
+
 	for {
 		time.Sleep(100 * time.Millisecond)
 		fmt.Println(time.Now().Unix(), "done")
@@ -96,10 +111,13 @@ func test8() {
 }
 
 func test9() {
+	fmt.Println("----------------------------bài 9------------------------------")
+
 	step := time.Duration(100 * time.Millisecond)
 	f := func() {
 		fmt.Println("I'm study")
 	}
+
 	Timer1 := time.AfterFunc(step, f)
 	defer Timer1.Stop()
 	time.Sleep(10 * time.Second)
